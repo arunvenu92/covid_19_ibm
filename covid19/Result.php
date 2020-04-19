@@ -36,7 +36,7 @@
 			while($row = $result->fetch_assoc()) 
 			{
 				echo'<tr>'; 
-				echo '<td> <a href="localhost\covid19\Details.php?id='.$row["REQ_ID"].'">'.$row["REQ_ID"].'</a></td>';
+				echo '<td> <a href="Details.php?id='.$row["REQ_ID"].'">'.$row["REQ_ID"].'</a></td>';
 				echo '<td>'.$row["USER_NAME"].'</td>';
 				echo '<td>'.$row["PHONE"].'</td>';
 				echo '<td>'.$row["REQ_TYPE"].'</td>';

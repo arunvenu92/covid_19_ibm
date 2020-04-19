@@ -17,34 +17,44 @@
    <table class="table">
 	<?php
 		include_once 'php/connect.php';		
-		$sql = "select * from requester";
-		
-		$result = $conn->query($sql);	
-		if ($result->num_rows > 0) 
+		if($_GET['id'] != NULL)
 		{
-			// output data of each row
-			echo'<div class="table-responsive">          
-				  <table class="table">
-					<thead>
-					  <tr>
-						<th>Requester ID</th>
-						<th>Requester user name</th>
-						<th>Phone number</th>
-						<th>Request Type</th>
-					 </tr>
-					</thead>';
-			while($row = $result->fetch_assoc()) 
+			$req_id = $_GET['id'];
+			$sql = "select * from requester where REQ_ID='$req_id'";
+			
+			$result = $conn->query($sql);
+			while ($row = $result->fetch_assoc())
 			{
-				echo'<tr>'; 
-				echo '<td> <a href="localhost\covid19\Details.php?id='.$row["REQ_ID"].'">'.$row["REQ_ID"].'</a></td>';
-				echo '<td>'.$row["USER_NAME"].'</td>';
-				echo '<td>'.$row["PHONE"].'</td>';
-				echo '<td>'.$row["REQ_TYPE"].'</td>';
-				echo'<tr>';
+				echo'<div class="table-responsive">          
+						  <table class="table">
+							  <tr>
+								<th>Requester ID</th>
+								<th>'.$row["REQ_ID"].'</th>
+							  </tr>
+							   <tr>
+								<th>Requester User Name</th>
+								<th>'.$row["USER_NAME"].'</th>
+							  </tr>
+							   <tr>
+								<th>Request type</th>
+								<th>'.$row["REQ_TYPE"].'</th>
+							  </tr>
+							  <tr>
+								<th>Requester Text</th>
+								<th>'.$row["REQ_TEXT"].'</th>
+							  </tr>
+							  <tr>
+								<th>Location Reference</th>
+								<th> <iframe
+									  width="600"
+									  height="450"
+									  frameborder="0" style="border:0"
+									  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDbBrYDQ2nyNOjOQx4ZAq1oPCRte4W34is&q='.$row["LATITUDE"].','.$row["LONGITUDE"].'&zoom=18&maptype=roadmap" allowfullscreen>
+									</iframe>
+								</th>
+							  </tr>s
+							 </table>';
 			}
-			echo '</table>';
-			echo '</div>';
-			echo '</div>';
 		}
 ?>	 
 	</table>
@@ -52,3 +62,4 @@
 </div>
 </body>
 </html>
+
