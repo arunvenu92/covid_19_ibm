@@ -1,0 +1,34 @@
+import pandas as pd
+import preprocessor as p
+from langdetect import detect_langs
+import re
+
+def filtering_data():
+
+    df=pd.read_csv('Sample_input.csv')
+
+    tweets = df.set_index('status_id',drop=False)
+
+    for index,row in tweets.iterrows():
+        words_=[]
+        phone_no=[]
+        hashtag=[]
+        text=row['text']
+        if str(detect_langs(text)[0])[0:2] == 'en':
+            p.set_options(p.OPT.URL, p.OPT.EMOJI, p.OPT.SMILEY)
+            text=p.clean(text)
+            text=text.lower().replace('.',' ').replace(',',' ').replace('?','').replace('!',' ')
+            words=text.split()
+            words=set(words)
+            words=list(words)
+            for w in words:
+                if re.match('^((\+){0,1}91(\s){0,1}(\-){0,1}(\s){0,1}){0,1}0{0,1}[1-9]{1}[0-9]{9}$',w):
+                    phone_no.append(w)
+                if w.startswith('#'):
+                    hashtag.append(w)
+            print(text)
+            print(phone_no)
+            print(hashtag)
+    
+filtering_data()
+
