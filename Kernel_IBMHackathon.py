@@ -33,11 +33,11 @@ def filtering_data():
             print(hashtag)
 
 def processML():
-      authenticator = IAMAuthenticator('Sq6TvPpasHcl1QSAaLWmIBujgkNgXy60suRZuFAxmpzl')
+      authenticator = IAMAuthenticator('')
 	  natural_language_understanding = NaturalLanguageUnderstandingV1(version='2019-07-12',authenticator=authenticator)
       natural_language_understanding.set_service_url('https://api.eu-de.natural-language-understanding.watson.cloud.ibm.com/instances/cc061342-790c-4da5-a294-0609b9312b49')
       response = natural_language_understanding.analyze(text=str('Need volunteers for distributing masks in Coimbatore'),
-      features=Features(entities=EntitiesOptions(sentiment=True,limit=10,model='1ddb93e9-0d91-4a64-ae42-d056fbf472b0'))).get_result()
+      features=Features(entities=EntitiesOptions(sentiment=True,limit=10,model=''))).get_result()
       print(json.dumps(response, indent=2))
 
 filtering_data()
